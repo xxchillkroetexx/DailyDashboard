@@ -1,7 +1,8 @@
 import express, { Request, Response, json } from "express";
 import mongoose, { mongo } from "mongoose";
 import DashboardModel from "./models/DashboardSchema";
-import { environment } from "./enviroment/dev";
+import { environment_dev } from "./enviroment/dev";
+import { environment_prod } from "./enviroment/prod";
 
 // * Spezifizierung des Ports, auf den die App hören soll
 const PORT = 5000;
@@ -41,7 +42,7 @@ app.post("/dashboard", async (req: Request, res: Response) => {
 mongoose
   .connect(
     // Connect to MongoDB
-    environment.mongodb
+    environment_dev.mongodb
   )
   .then(() => {
     // * Starte Anwendung nachdem Verbindung zur DB steht
