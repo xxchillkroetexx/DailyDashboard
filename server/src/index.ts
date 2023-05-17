@@ -12,6 +12,8 @@ const app = express();
 // Support für JSON requests
 app.use(express.json());
 
+// Sinnloser Kommentar
+
 // * Pfade und deren response
 // GET
 app.get("/", (req: Request, res: Response) => {
