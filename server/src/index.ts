@@ -12,7 +12,7 @@ const app = express();
 // Support für JSON requests
 app.use(express.json());
 
-// Sinnloser Kommentar
+// Sinnloser Kommentar 1235
 
 // * Pfade und deren response
 // GET
