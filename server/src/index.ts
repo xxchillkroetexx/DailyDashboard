@@ -5,7 +5,7 @@ import { environment_dev } from "./enviroment/dev";
 import { environment_prod } from "./enviroment/prod";
 
 // * Spezifizierung des Ports, auf den die App hören soll
-const PORT = 5000;
+const PORT = 50000;
 
 // * App erstellen
 const app = express();
