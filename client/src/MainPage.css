@@ -1,0 +1,18 @@
+/* 
+Wird auf alles in main.tsx angewendet außer was untergeordetes  
+wird explizit definiert   
+*/
+.MainPage {
+    background-color:darkblue;
+    display: flex; /* Ordnet Tiles dynamisch an */
+    flex-wrap: wrap; /* Verhindert dass Tiles abgeschnitten werden */
+    justify-content: center; /* Zentriert alles im Body */
+  }
+  
+/* Definiert größe und Farbe der Tiles */
+  .tile {
+    width: 300px;
+    height: 400px;
+    margin: 10px;
+    background-color:cornflowerblue;
+  }
