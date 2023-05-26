@@ -1,9 +1,10 @@
 import { environment_dev } from "./enviroment/dev";
 import { environment_prod } from "./enviroment/prod";
-import express, { Request, Response, json } from "express";
+import express, { Request, Response, json, response } from "express";
 import mongoose, { mongo } from "mongoose";
 import DashboardModel from "./models/DashboardSchema";
 import CredentialsModel from "./models/CredentialsSchema";
+import axios, { AxiosResponse } from "axios";
 
 // * Spezifizierung des Ports, auf den die App hören soll
 const PORT = 50000;
@@ -13,17 +14,41 @@ const app = express();
 // Support für JSON requests
 app.use(express.json());
 
-// Sinnloser Kommentar 1235
-
 // * Pfade und deren response
 // Default index
 app.get("/", (req: Request, res: Response) => {
   res.send("index page");
 });
 
+// * Joke API
+app.get("/joke", async (req: Request, res: Response) => {
+  // help funktion for fetching data form external sites
+  async function fetchData(): Promise<any> {
+    try {
+      const response: AxiosResponse = await axios.get(
+        "https://official-joke-api.appspot.com/jokes/random"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error calling an API:", error);
+      throw error;
+    }
+  }
+  // fetch random Joke
+  try {
+    const fetchedJoke = await fetchData();
+    // output for debugging
+    console.log(fetchedJoke);
+
+    res.json(fetchedJoke);
+  } catch (error) {}
+});
+//End Joke API
+
 // * Login
 // GET credentials identified by a hash (SHA256)
 app.get("/login", async (req: Request, res: Response) => {
+  // output for debugging
   console.log(req.body);
 
   const foundCredential = await mongoose.connection
@@ -34,6 +59,7 @@ app.get("/login", async (req: Request, res: Response) => {
 
 // POST for creating new users with password hashes
 app.post("/login", async (req: Request, res: Response) => {
+  // output for debugging
   console.log(req.body);
 
   const Credentials = new CredentialsModel({
@@ -49,6 +75,7 @@ app.post("/login", async (req: Request, res: Response) => {
 // * Dashboard
 // Get a Dashboard from the Database
 app.get("/dashboard", async (req: Request, res: Response) => {
+  // output for debugging
   console.log(req.body);
 
   const fetchedDashboard = mongoose.connection
