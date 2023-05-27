@@ -14,6 +14,7 @@ app.use(express.json());
 
 // Sinnloser Kommentar 1235
 
+
 // * Pfade und deren response
 // GET
 app.get("/", (req: Request, res: Response) => {
