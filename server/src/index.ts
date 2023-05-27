@@ -4,6 +4,7 @@ import express, { Request, Response, json, response } from "express";
 import mongoose, { mongo } from "mongoose";
 import DashboardModel from "./models/DashboardSchema";
 import CredentialsModel from "./models/CredentialsSchema";
+import UserSchema from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
 
 // * Spezifizierung des Ports, auf den die App hören soll
