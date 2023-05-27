@@ -7,7 +7,6 @@ import CredentialsModel from "./models/CredentialsSchema";
 import UserModel from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
 import authJwt from "./middlewares/authJwt";
-import verifySignUp from "./middlewares/verifySignUp";
 import authRoutes from "./routes/auth.routes";
 
 // * Spezifizierung des Ports, auf den die App hören soll
@@ -24,7 +23,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("index page");
 });
 
-// * Joke API
+// ! Joke API
 app.get("/joke", async (req: Request, res: Response) => {
   // help funktion for fetching data form external sites
   async function fetchData(): Promise<any> {
@@ -49,22 +48,29 @@ app.get("/joke", async (req: Request, res: Response) => {
 });
 //End Joke API
 
-// * Register
+// ! Register
 app.post("/register", async (req: Request, res: Response) => {
+  // output for debugging
   console.log(req.body);
 
-  // const existingUser = await mongoose.connection
-  //   .collection("users")
-  //   .findOne({ username: req.body["username"] });
-
-  // check if users already in use
+  // check if user already in use
   if (
     await mongoose.connection
       .collection("users")
       .findOne({ username: req.body["username"] })
   ) {
-    res.json({ body: "username already in use" });
-  } else {
+    res.json({ message: "username already in use!" });
+  }
+  // check if email already in use
+  else if (
+    await mongoose.connection
+      .collection("users")
+      .findOne({ email: req.body["email"] })
+  ) {
+    res.json({ message: "email already in use!" });
+  }
+  // create new user and save it to the database
+  else {
     const User = new UserModel({
       username: req.body["username"],
       email: req.body["email"],
@@ -76,7 +82,7 @@ app.post("/register", async (req: Request, res: Response) => {
 });
 
 // TODO Change Model and login
-// * Login
+// ! Login
 // GET credentials identified by a hash (SHA256)
 app.get("/login", async (req: Request, res: Response) => {
   // output for debugging
@@ -103,7 +109,7 @@ app.post("/login", async (req: Request, res: Response) => {
 });
 // End Login
 
-// * Dashboard
+// ! Dashboard
 // Get a Dashboard from the Database
 app.get("/dashboard", async (req: Request, res: Response) => {
   // output for debugging
@@ -135,14 +141,14 @@ app.post("/dashboard", async (req: Request, res: Response) => {
 });
 // * Ende Pfade
 
-// * Verbindung zu MongoDB
+// ! Verbindung zu MongoDB
 mongoose
   .connect(
     // Connect to MongoDB
     environment_dev.mongodb
   )
   .then(() => {
-    // * Starte Anwendung nachdem Verbindung zur DB steht
+    // ! Starte Anwendung nachdem Verbindung zur DB steht
     console.log(`listening on port ${PORT}`);
     app.listen(PORT);
   });
