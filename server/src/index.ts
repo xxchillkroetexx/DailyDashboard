@@ -14,6 +14,7 @@ const app = express();
 // Support für JSON requests
 app.use(express.json());
 
+
 // * Pfade und deren response
 // Default index
 app.get("/", (req: Request, res: Response) => {
