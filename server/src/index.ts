@@ -4,7 +4,7 @@ import express, { Request, Response, json, response } from "express";
 import mongoose, { mongo } from "mongoose";
 import DashboardModel from "./models/DashboardSchema";
 import CredentialsModel from "./models/CredentialsSchema";
-import UserSchema from "./models/UserSchema";
+import UserModel from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
 import authJwt from "./authJwt";
 import verifySignUp from ".middlewares/verifySignUp";
@@ -48,6 +48,33 @@ app.get("/joke", async (req: Request, res: Response) => {
 });
 //End Joke API
 
+// * Register
+app.post("/register", async (req: Request, res: Response) => {
+  console.log(req.body);
+
+  // const existingUser = await mongoose.connection
+  //   .collection("users")
+  //   .findOne({ username: req.body["username"] });
+
+  // check if users already in use
+  if (
+    await mongoose.connection
+      .collection("users")
+      .findOne({ username: req.body["username"] })
+  ) {
+    res.json({ body: "username already in use" });
+  }
+
+  const User = new UserModel({
+    username: req.body["username"],
+    email: req.body["email"],
+    passwordhash: req.body["passwordhash"],
+  });
+  const newUser = await User.save();
+  res.json(newUser);
+});
+
+// TODO Change Model and login
 // * Login
 // GET credentials identified by a hash (SHA256)
 app.get("/login", async (req: Request, res: Response) => {
@@ -119,11 +146,9 @@ mongoose
     app.listen(PORT);
   });
 
+JsonWebToken export
 
-
-  //JsonWebToken export
-
-  export default {
-    authJwt,
-    verifySignUp
-  };
+export default {
+  authJwt,
+  verifySignUp,
+};
