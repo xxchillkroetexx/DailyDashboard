@@ -8,7 +8,7 @@ import UserModel from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
 import authJwt from "./middlewares/authJwt";
 import verifySignUp from "./middlewares/verifySignUp";
-import authRoutes from './routes/auth.routes';
+import authRoutes from "./routes/auth.routes";
 
 // * Spezifizierung des Ports, auf den die App hören soll
 const PORT = 50000;
@@ -64,15 +64,15 @@ app.post("/register", async (req: Request, res: Response) => {
       .findOne({ username: req.body["username"] })
   ) {
     res.json({ body: "username already in use" });
+  } else {
+    const User = new UserModel({
+      username: req.body["username"],
+      email: req.body["email"],
+      passwordhash: req.body["passwordhash"],
+    });
+    const newUser = await User.save();
+    res.json(newUser);
   }
-
-  const User = new UserModel({
-    username: req.body["username"],
-    email: req.body["email"],
-    passwordhash: req.body["passwordhash"],
-  });
-  const newUser = await User.save();
-  res.json(newUser);
 });
 
 // TODO Change Model and login
@@ -147,9 +147,9 @@ mongoose
     app.listen(PORT);
   });
 
-JsonWebToken export
+// JsonWebToken export
 
-export default {
-  authJwt,
-  verifySignUp,
-};
+// export default {
+//   authJwt,
+//   verifySignUp,
+// };
