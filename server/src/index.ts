@@ -6,8 +6,9 @@ import DashboardModel from "./models/DashboardSchema";
 import CredentialsModel from "./models/CredentialsSchema";
 import UserModel from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
-import authJwt from "./authJwt";
-import verifySignUp from ".middlewares/verifySignUp";
+import authJwt from "./middlewares/authJwt";
+import verifySignUp from "./middlewares/verifySignUp";
+import authRoutes from './routes/auth.routes';
 
 // * Spezifizierung des Ports, auf den die App hören soll
 const PORT = 50000;
