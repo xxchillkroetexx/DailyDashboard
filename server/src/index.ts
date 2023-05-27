@@ -5,6 +5,8 @@ import mongoose, { mongo } from "mongoose";
 import DashboardModel from "./models/DashboardSchema";
 import CredentialsModel from "./models/CredentialsSchema";
 import axios, { AxiosResponse } from "axios";
+import authJwt from "./authJwt";
+import verifySignUp from ".middlewares/verifySignUp";
 
 // * Spezifizierung des Ports, auf den die App hören soll
 const PORT = 50000;
@@ -115,3 +117,12 @@ mongoose
     console.log(`listening on port ${PORT}`);
     app.listen(PORT);
   });
+
+
+
+  //JsonWebToken export
+
+  export default {
+    authJwt,
+    verifySignUp
+  };
