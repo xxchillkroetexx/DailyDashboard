@@ -6,7 +6,6 @@
 import { Component } from "react";
 
 import UserService from "../services/user.service";
-import SiteHeader from "./SiteHeader";
 import "../Home.css";
 
 type Props = {};
@@ -22,7 +21,6 @@ export default class Home extends Component<Props, State> {
     this.state = {
       content: (
         <>
-          <SiteHeader />
           {/* Header mit Darkmode, Name und Login */}
           {/* Body der Hauptseite. Design wird aus Home.css gezogen */}
           <div className="Home">

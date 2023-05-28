@@ -5,22 +5,19 @@
 
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = "http://localhost:50000/";
 
 class AuthService {
-  login(username: string, password: string) {
-    return axios
-      .post(API_URL + "signin", {
-        username,
-        password,
-      })
-      .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-
-        return response.data;
-      });
+  // login of user to
+  async login(username: string, password: string) {
+    const response = await axios.post(API_URL + "login", {
+      username: username,
+      passwordhash: password,
+    });
+    if (response.data.accessToken) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
   }
 
   logout() {
@@ -28,10 +25,10 @@ class AuthService {
   }
 
   register(username: string, email: string, password: string) {
-    return axios.post(API_URL + "signup", {
-      username,
-      email,
-      password,
+    return axios.post(API_URL + "register", {
+      username: username,
+      email: email,
+      passwordhash: password,
     });
   }
 

@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.3",
     "formik": "^2.2.9",
     "react": "^18.2.0",
@@ -22,6 +23,7 @@
     "yup": "^1.1.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",

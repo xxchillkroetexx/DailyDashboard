@@ -6,8 +6,7 @@ import DashboardModel from "./models/DashboardSchema";
 import CredentialsModel from "./models/CredentialsSchema";
 import UserModel from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
-import authJwt from "./middlewares/authJwt";
-import authRoutes from "./routes/auth.routes";
+import cors from "cors";
 
 // * Spezifizierung des Ports, auf den die App hören soll
 const PORT = 50000;
@@ -16,6 +15,8 @@ const PORT = 50000;
 const app = express();
 // Support für JSON requests
 app.use(express.json());
+// Support for Cross-Origin Requests
+app.use(cors());
 
 // * Pfade und deren response
 // Default index
@@ -77,35 +78,42 @@ app.post("/register", async (req: Request, res: Response) => {
       passwordhash: req.body["passwordhash"],
     });
     const newUser = await User.save();
-    res.json(newUser);
+    console.log(newUser);
+
+    res.json({ message: "User created!" });
   }
 });
 
 // TODO Change Model and login
 // ! Login
-// GET credentials identified by a hash (SHA256)
-app.get("/login", async (req: Request, res: Response) => {
-  // output for debugging
-  console.log(req.body);
-
-  const foundCredential = await mongoose.connection
-    .collection("credentials")
-    .findOne({ passwordhash: req.body["passwordhash"] });
-  res.json(foundCredential);
-});
-
-// POST for creating new users with password hashes
+// POST login with existing credentials
 app.post("/login", async (req: Request, res: Response) => {
   // output for debugging
   console.log(req.body);
-
-  const Credentials = new CredentialsModel({
-    username: req.body["username"],
-    passwordhash: req.body["passwordhash"],
-  });
-
-  const createdCredentials = await Credentials.save();
-  res.json(createdCredentials);
+  // Call to DB and find user with username
+  const foundUser = await mongoose.connection
+    .collection("users")
+    .findOne({ username: req.body["username"] });
+  // Check if user exists and if username and passwordhash are the same as the provided ones
+  if (
+    foundUser != null &&
+    foundUser["username"] == req.body["username"] &&
+    foundUser["passwordhash"] == req.body["passwordhash"]
+  ) {
+    // return Success
+    res.json({
+      message: "Login Successful",
+      loggedIn: "True",
+      username: req.body["username"],
+    });
+  } else {
+    // return Failure
+    res.json({
+      message: "Login Failure",
+      loggedIn: "False",
+      username: req.body["username"],
+    });
+  }
 });
 // End Login
 
@@ -117,7 +125,7 @@ app.get("/dashboard", async (req: Request, res: Response) => {
 
   const fetchedDashboard = mongoose.connection
     .collection("dashboards")
-    .findOne({ name: "default" });
+    .findOne({ name: req.body["name"] });
 
   res.json(fetchedDashboard);
 });
@@ -152,10 +160,3 @@ mongoose
     console.log(`listening on port ${PORT}`);
     app.listen(PORT);
   });
-
-// JsonWebToken export
-
-// export default {
-//   authJwt,
-//   verifySignUp,
-// };
