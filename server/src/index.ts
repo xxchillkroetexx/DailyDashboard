@@ -84,7 +84,7 @@ app.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-// TODO Change Model and login
+// TODO check cookie
 // ! Login
 // POST login with existing credentials
 app.post("/login", async (req: Request, res: Response) => {
@@ -121,19 +121,19 @@ app.post("/login", async (req: Request, res: Response) => {
 // Get a Dashboard from the Database
 app.get("/dashboard", async (req: Request, res: Response) => {
   // output for debugging
-  console.log(req.body);
+  console.log("get /dashboard", req.body);
 
   const fetchedDashboard = mongoose.connection
     .collection("dashboards")
-    .findOne({ name: req.body["name"] });
+    .findOne({ name: "default" });
 
-  res.json(fetchedDashboard);
+  // res.json(fetchedDashboard);
 });
 
 // Create Dashboards in the Database
-app.post("/dashboard", async (req: Request, res: Response) => {
+app.post("/userdashboard", async (req: Request, res: Response) => {
   // print the request body to the console
-  console.log(req.body);
+  console.log("post /userdashboard", req.body);
 
   // pass the given Json to the DashboardModel
   const Dashboard = new DashboardModel({

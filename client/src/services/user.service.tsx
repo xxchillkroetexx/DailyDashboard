@@ -10,7 +10,7 @@ const API_URL = "http://localhost:50000/";
 
 class UserService {
   getPublicContent() {
-    return axios.get(API_URL + "dashboard");
+    return axios.get(API_URL + "dashboard"); // TODO display default Dashboard
   }
 
   getUserBoard() {

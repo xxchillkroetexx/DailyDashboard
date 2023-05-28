@@ -134,10 +134,10 @@ export default class Login extends Component<Props, State> {
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group d-grid">
                 <button
                   type="submit"
-                  className="btn btn-primary btn-block"
+                  className="btn btn-outline-primary btn-block"
                   disabled={loading}
                 >
                   {loading && (

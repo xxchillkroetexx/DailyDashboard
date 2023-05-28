@@ -1,6 +1,5 @@
 /**
  *  Hier wird die Registrierungs-Seite dargestellt
- *
  */
 
 import { Component } from "react";
@@ -32,7 +31,12 @@ export default class Register extends Component<Props, State> {
       message: "",
     };
   }
-
+  /**
+   *  Defines the validation rules for the form fields using Yup.
+   *  Ensures that the username is between 3 and 20 characters,
+   *  email is a valid email address, and the password is between
+   *  6 and 40 characters.
+   */
   validationSchema() {
     return Yup.object().shape({
       username: Yup.string()
@@ -56,27 +60,34 @@ export default class Register extends Component<Props, State> {
         .required("This field is required!"),
     });
   }
-
+  /**
+   * Handles the registration form submission.
+   * Calls the AuthService to register the user.
+   * Updates the component's state with the response data.
+   */
   handleRegister(formValue: {
     username: string;
     email: string;
     password: string;
   }) {
     const { username, email, password } = formValue;
-
+    // Reset the message and successful status
     this.setState({
       message: "",
       successful: false,
     });
 
+    // Call the AuthService to register the user
     AuthService.register(username, email, password).then(
       (response) => {
+        // Registration successful, update the message and successful status
         this.setState({
           message: response.data.message,
           successful: true,
         });
       },
       (error) => {
+        // Registration failed, update the message and successful status
         const resMessage =
           (error.response &&
             error.response.data &&
@@ -94,6 +105,7 @@ export default class Register extends Component<Props, State> {
 
   render() {
     const { successful, message } = this.state;
+    // Initialize form field values
 
     const initialValues = {
       username: "",
@@ -118,6 +130,7 @@ export default class Register extends Component<Props, State> {
             <Form>
               {!successful && (
                 <div>
+                  {/* Username field */}
                   <div className="form-group">
                     <label htmlFor="username"> Username </label>
                     <Field
@@ -132,6 +145,7 @@ export default class Register extends Component<Props, State> {
                     />
                   </div>
 
+                  {/* Email field */}
                   <div className="form-group">
                     <label htmlFor="email"> Email </label>
                     <Field name="email" type="email" className="form-control" />
@@ -142,6 +156,7 @@ export default class Register extends Component<Props, State> {
                     />
                   </div>
 
+                  {/* Password field */}
                   <div className="form-group">
                     <label htmlFor="password"> Password </label>
                     <Field
@@ -156,14 +171,19 @@ export default class Register extends Component<Props, State> {
                     />
                   </div>
 
-                  <div className="form-group">
-                    <button type="submit" className="btn btn-primary btn-block">
+                  {/* Submit button */}
+                  <div className="form-group d-grid">
+                    <button
+                      type="submit"
+                      className="btn btn-outline-primary btn-block"
+                    >
                       Sign Up
                     </button>
                   </div>
                 </div>
               )}
 
+              {/* Display success or error message */}
               {message && (
                 <div className="form-group">
                   <div
