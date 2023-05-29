@@ -1,11 +1,13 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import Mainpage from "./MainPage.tsx";
-// import './index.css'
+import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import MainPage from "./MainPage";
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <Mainpage />
-  </React.StrictMode>
+  <BrowserRouter>
+    <MainPage />
+  </BrowserRouter>
 );
+
+reportWebVitals();

@@ -4,7 +4,9 @@ import express, { Request, Response, json, response } from "express";
 import mongoose, { mongo } from "mongoose";
 import DashboardModel from "./models/DashboardSchema";
 import CredentialsModel from "./models/CredentialsSchema";
+import UserModel from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
+import cors from "cors";
 
 // * Spezifizierung des Ports, auf den die App hören soll
 const PORT = 50000;
@@ -13,6 +15,8 @@ const PORT = 50000;
 const app = express();
 // Support für JSON requests
 app.use(express.json());
+// Support for Cross-Origin Requests
+app.use(cors());
 
 // * Pfade und deren response
 // Default index
@@ -20,7 +24,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("index page");
 });
 
-// * Joke API
+// ! Joke API
 app.get("/joke", async (req: Request, res: Response) => {
   // help funktion for fetching data form external sites
   async function fetchData(): Promise<any> {
@@ -45,50 +49,91 @@ app.get("/joke", async (req: Request, res: Response) => {
 });
 //End Joke API
 
-// * Login
-// GET credentials identified by a hash (SHA256)
-app.get("/login", async (req: Request, res: Response) => {
+// ! Register
+app.post("/register", async (req: Request, res: Response) => {
   // output for debugging
   console.log(req.body);
 
-  const foundCredential = await mongoose.connection
-    .collection("credentials")
-    .findOne({ passwordhash: req.body["passwordhash"] });
-  res.json(foundCredential);
+  // check if user already in use
+  if (
+    await mongoose.connection
+      .collection("users")
+      .findOne({ username: req.body["username"] })
+  ) {
+    res.json({ message: "username already in use!" });
+  }
+  // check if email already in use
+  else if (
+    await mongoose.connection
+      .collection("users")
+      .findOne({ email: req.body["email"] })
+  ) {
+    res.json({ message: "email already in use!" });
+  }
+  // create new user and save it to the database
+  else {
+    const User = new UserModel({
+      username: req.body["username"],
+      email: req.body["email"],
+      passwordhash: req.body["passwordhash"],
+    });
+    const newUser = await User.save();
+    console.log(newUser);
+
+    res.json({ message: "User created!" });
+  }
 });
 
-// POST for creating new users with password hashes
+// TODO check cookie
+// ! Login
+// POST login with existing credentials
 app.post("/login", async (req: Request, res: Response) => {
   // output for debugging
   console.log(req.body);
-
-  const Credentials = new CredentialsModel({
-    username: req.body["username"],
-    passwordhash: req.body["passwordhash"],
-  });
-
-  const createdCredentials = await Credentials.save();
-  res.json(createdCredentials);
+  // Call to DB and find user with username
+  const foundUser = await mongoose.connection
+    .collection("users")
+    .findOne({ username: req.body["username"] });
+  // Check if user exists and if username and passwordhash are the same as the provided ones
+  if (
+    foundUser != null &&
+    foundUser["username"] == req.body["username"] &&
+    foundUser["passwordhash"] == req.body["passwordhash"]
+  ) {
+    // return Success
+    res.json({
+      message: "Login Successful",
+      loggedIn: "True",
+      username: req.body["username"],
+    });
+  } else {
+    // return Failure
+    res.json({
+      message: "Login Failure",
+      loggedIn: "False",
+      username: req.body["username"],
+    });
+  }
 });
 // End Login
 
-// * Dashboard
+// ! Dashboard
 // Get a Dashboard from the Database
 app.get("/dashboard", async (req: Request, res: Response) => {
   // output for debugging
-  console.log(req.body);
+  console.log("get /dashboard", req.body);
 
   const fetchedDashboard = mongoose.connection
     .collection("dashboards")
     .findOne({ name: "default" });
 
-  res.json(fetchedDashboard);
+  // res.json(fetchedDashboard);
 });
 
 // Create Dashboards in the Database
-app.post("/dashboard", async (req: Request, res: Response) => {
+app.post("/userdashboard", async (req: Request, res: Response) => {
   // print the request body to the console
-  console.log(req.body);
+  console.log("post /userdashboard", req.body);
 
   // pass the given Json to the DashboardModel
   const Dashboard = new DashboardModel({
@@ -104,14 +149,14 @@ app.post("/dashboard", async (req: Request, res: Response) => {
 });
 // * Ende Pfade
 
-// * Verbindung zu MongoDB
+// ! Verbindung zu MongoDB
 mongoose
   .connect(
     // Connect to MongoDB
     environment_dev.mongodb
   )
   .then(() => {
-    // * Starte Anwendung nachdem Verbindung zur DB steht
+    // ! Starte Anwendung nachdem Verbindung zur DB steht
     console.log(`listening on port ${PORT}`);
     app.listen(PORT);
   });
