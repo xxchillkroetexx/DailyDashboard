@@ -28,8 +28,8 @@ function GetWitz() {
 
 
   return <div>
-    {data?.setup && <p>{setup}</p>}
-    {data?.punchline && <p>{punchline}</p>}
+    {data?.setup && <p>{data?.setup}</p>}
+    {data?.punchline && <p>{data?.punchline}</p>}
     </div>;
 }
 
