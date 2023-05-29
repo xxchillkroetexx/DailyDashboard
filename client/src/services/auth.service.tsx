@@ -4,6 +4,7 @@
  */
 
 import axios from "axios";
+import cookieUtil from "./cookie-util";
 
 const API_URL = "http://localhost:50000/";
 
@@ -14,8 +15,11 @@ class AuthService {
       username: username,
       passwordhash: password,
     });
-    if (response.data.accessToken) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+    if (cookieUtil.getAccessTokenCookie() != null) {
+      cookieUtil.deleteAccessTokenCookie();
+    }
+    if (response.data.token ? true : false) {
+      cookieUtil.setAccessTokenCookie(response.data.token);
     }
     return response.data;
   }
