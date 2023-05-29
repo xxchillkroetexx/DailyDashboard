@@ -4,7 +4,7 @@
  */
 
 import { Component } from "react";
-
+import GetWitz from "./GetWitz";
 import UserService from "../services/user.service";
 import "../Home.css";
 
@@ -25,7 +25,7 @@ export default class Home extends Component<Props, State> {
           {/* Body der Hauptseite. Design wird aus Home.css gezogen */}
           <div className="Home">
             {/* Die 4 Tiles auf der Seite. Design wird aus Home.css gezogen */}
-            <div className="tile"> Hier Tile Content einfügen </div>
+            <div className="tile"> <h1>Witz des Tages</h1>  <GetWitz/></div>
             <div className="tile"> Hier Tile Content einfügen </div>
             <div className="tile"> Hier Tile Content einfügen </div>
             <div className="tile"> Hier Tile Content einfügen </div>
