@@ -3,7 +3,6 @@ import { environment_prod } from "./enviroment/prod";
 import express, { Request, Response, json, response } from "express";
 import mongoose, { mongo } from "mongoose";
 import DashboardModel from "./models/DashboardSchema";
-import CredentialsModel from "./models/CredentialsSchema";
 import UserModel from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
 import cors from "cors";
@@ -105,6 +104,7 @@ app.post("/login", async (req: Request, res: Response) => {
       message: "Login Successful",
       loggedIn: "True",
       username: req.body["username"],
+      token: req.body["username"] + req.body["passwordhash"] + "123456789",
     });
   } else {
     // return Failure
