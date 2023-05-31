@@ -11,20 +11,24 @@ interface IData {
 
 function GetWitz() {
   const [data, setData] = useState<IData | null>(null);
-  const [error, setError] = useState<string | null>(null); // Zustand für den Fehler hinzufügen
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+
     const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:50000/joke");
+      const response = await fetch("http://localhost:50000/joke");
+      try{
+        
         if (!response.ok) {
           throw new Error("Fehler beim Datenabruf: " + response.status);
         }
         const jsonData = await response.json();
         setData(jsonData);
-      } catch (error) {
-        setError(error.message);
       }
+      catch(error){
+        setError("Fehler beim Datenabruf");
+      }
+
     };
     fetchData();
 
@@ -33,14 +37,14 @@ function GetWitz() {
 
   return (
     <div>
-      {error ? (
-        <p>{error}</p>
-      ) : (
-        <>
-          {data?.setup && <p>{data?.setup}</p>}
-          {data?.punchline && <p>{data?.punchline}</p>}
-        </>
-      )}
+    {error ? (
+      <p>{error}</p>
+    ) : (
+      <>
+        {data?.setup && <p>{data?.setup}</p>}
+        {data?.punchline && <p>{data?.punchline}</p>}
+      </>
+    )}
     </div>
   );
 }
