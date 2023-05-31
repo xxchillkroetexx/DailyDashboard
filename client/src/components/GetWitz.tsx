@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import React from "react";
+
 
 interface IData {
-  // Hier muss die Struktur der Daten definiert werden  
   type?: string;
   setup?: string;
   punchline?: string;
@@ -9,28 +10,43 @@ interface IData {
 }
 
 function GetWitz() {
-  const [data, setData] = useState<IData | null>(null); // Zustandstyp auf IData oder null setzen
+  const [data, setData] = useState<IData | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+
     const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:50000/joke");
+      const response = await fetch("http://localhost:50000/joke");
+      try{
+        
+        if (!response.ok) {
+          throw new Error("Fehler beim Datenabruf: " + response.status);
+        }
         const jsonData = await response.json();
         setData(jsonData);
-      } catch (error) {
-        console.error("Fehler beim Datenabruf:", error);
       }
+      catch(error){
+        setError("Fehler beim Datenabruf");
+      }
+
     };
     fetchData();
 
     return;
   }, []);
 
-
-  return <div>
-    {data?.setup && <p>{data?.setup}</p>}
-    {data?.punchline && <p>{data?.punchline}</p>}
-    </div>;
+  return (
+    <div>
+    {error ? (
+      <p>{error}</p>
+    ) : (
+      <>
+        {data?.setup && <p>{data?.setup}</p>}
+        {data?.punchline && <p>{data?.punchline}</p>}
+      </>
+    )}
+    </div>
+  );
 }
 
 export default GetWitz;
