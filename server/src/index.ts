@@ -160,3 +160,4 @@ mongoose
     console.log(`listening on port ${PORT}`);
     app.listen(PORT);
   });
+// * Ende Verbindung zu MongoDB
