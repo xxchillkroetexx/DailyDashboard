@@ -2,11 +2,9 @@ import { render, screen } from "@testing-library/react";
 import GetWitz from "../src/components/GetWitz";
 
 
-
-
-describe('GetWitz', () => {
+describe("GetWitz", () => {
   beforeEach(() => {
-    jest.spyOn(global, 'fetch').mockImplementation(() =>
+    global.fetch = jest.fn().mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve(mockData),
       })
@@ -17,10 +15,10 @@ describe('GetWitz', () => {
     jest.restoreAllMocks();
   });
 
-  it('should render joke setup and punchline if data is fetched successfully', async () => {
+  it("should render joke setup and punchline if data is fetched successfully", async () => {
     const mockData = {
-      setup: 'Why did the chicken cross the road?',
-      punchline: 'To get to the other side!'
+      setup: "Why did the chicken cross the road?",
+      punchline: "To get to the other side!",
     };
 
     render(<GetWitz />);
@@ -32,15 +30,15 @@ describe('GetWitz', () => {
     expect(punchlineElement).toBeInTheDocument();
   });
 
-  it('should handle data fetch error', async () => {
-    const mockError = new Error('Data fetch error');
-    jest.spyOn(global, 'fetch').mockImplementation(() =>
+  it("should handle data fetch error", async () => {
+    const mockError = new Error("Data fetch error");
+    global.fetch = jest.fn().mockImplementation(() =>
       Promise.reject(mockError)
     );
 
     render(<GetWitz />);
 
-    const errorElement = await screen.findByText('Fehler beim Datenabruf:');
+    const errorElement = await screen.findByText("Fehler beim Datenabruf:");
     expect(errorElement).toBeInTheDocument();
   });
 });
