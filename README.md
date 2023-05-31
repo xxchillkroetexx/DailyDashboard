@@ -1,18 +1,19 @@
 # DailyDashboard
 
-## Important commands
+This web application gives you some information you might need on a daily basis. Hence the name.
 
-### node
+---
 
-- Run webserver in development mode with: `npm run dev`
+## running the Application
 
-### Git
+### 1. Start the backend (server)
 
-- `git add README.md`
-- `git commit -m "commit message"`
-- `git push`
+after you have downloaded the repository and installed all the needed requirements, start the backend with the command `npm run dev`
 
-### IDE
+### 2. Start the Frontend (client)
 
-- nodemon: hot module replacement für backend
-  - https://stackoverflow.com/questions/37979489/how-to-watch-and-reload-ts-node-when-typescript-files-change
+When your backend is spun up, start the frontend with the command `npm run dev`
+
+The website is now reachable over `http://localhost` on port _`5172`_.
+
+---
