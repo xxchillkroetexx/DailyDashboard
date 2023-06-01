@@ -1,3 +1,26 @@
 /*
 * wird auf alles in login.component.tsx angewendet außer was untergeordetes  
 */
+
+
+.col-md-12 {
+  padding: 0;
+}
+
+.card card-container {
+  max-width: 350px !important;
+  padding: 40px 40px;
+  background-color: brown;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group d-grid {
+  margin-top: 10px;
+}
+
+.btn btn-outline-primary btn-block {
+  margin-top: 10px;
+}
