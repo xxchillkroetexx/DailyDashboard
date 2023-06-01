@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./MainPage.css";
+import "./style/Mainpage.css";
 
 import AuthService from "./services/auth.service";
 import IUser from "./types/user.type";
@@ -10,7 +10,7 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
+import BoardUser from "./components/userboard.component";
 
 import EventBus from "./common/EventBus";
 

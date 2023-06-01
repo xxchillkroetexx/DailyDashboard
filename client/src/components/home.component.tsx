@@ -4,9 +4,9 @@
  */
 
 import { Component } from "react";
-import GetWitz from "./GetWitz";
+import GetWitz from "../services/GetWitz.service";
 import UserService from "../services/user.service";
-import "../Home.css";
+import "../style/Home.css";
 
 type Props = {};
 
