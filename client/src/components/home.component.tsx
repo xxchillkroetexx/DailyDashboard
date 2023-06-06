@@ -8,6 +8,8 @@ import GetWitz from "./GetWitz";
 import UserService from "../services/user.service";
 import "../Home.css";
 import WeatherPanel from "./WeatherPanel";
+import KalenderPanel from "./KalenderPanel";
+
 
 type Props = {};
 
@@ -30,7 +32,7 @@ export default class Home extends Component<Props, State> {
             {/* Die 4 Tiles auf der Seite. Design wird aus Home.css gezogen */}
             <div className="tile"> <h1>Witz des Tages</h1>  <GetWitz/></div>
             <div className="tile"> <WeatherPanel/> </div>
-            <div className="tile"> Hier Tile Content einfügen </div>
+            <div className="tile"> <KalenderPanel/> </div>
             <div className="tile"> Hier Tile Content einfügen </div>
           </div>
         </>
