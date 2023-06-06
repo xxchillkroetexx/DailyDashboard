@@ -13,6 +13,7 @@ type State = {
   content: string;
 };
 
+// BoardUser component
 export default class BoardUser extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -22,13 +23,16 @@ export default class BoardUser extends Component<Props, State> {
     };
   }
 
+  // get the content from the backend
   componentDidMount() {
     UserService.getUserBoard().then(
+      // if there is a response, set the content to the response data
       (response) => {
         this.setState({
           content: response.data,
         });
       },
+      // if there is an error, set the content to the error message
       (error) => {
         this.setState({
           content:
@@ -42,6 +46,7 @@ export default class BoardUser extends Component<Props, State> {
     );
   }
 
+  // render the content
   render() {
     return (
       <div className="container">
