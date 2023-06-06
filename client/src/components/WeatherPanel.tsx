@@ -10,26 +10,46 @@ interface WeatherData {
 }
 
 const WeatherPanel = () => {
-  const [city, setCity] = useState('Berlin');
+  const [city, setCity] = useState('');
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [latitude, setLatitude] = useState(52.5200);
-  const [longitude, setLongitude] = useState(13.4050);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
 
   useEffect(() => {
-    // Ersetzen Sie 'YOUR_OPENCAGE_API_KEY' durch Ihren tatsächlichen OpenCage API-Schlüssel
-    const geocodingUrl = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=d36c33c26c204456bef7770d58567a90`;
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    }, (error) => {
+      if (error.code === error.PERMISSION_DENIED) {
+        setCity('Mannheim');
+        setLatitude(49.4875);
+        setLongitude(8.4660);
+      }
+    });
+  }, []);
 
-    fetch(geocodingUrl)
+  useEffect(() => {
+    if (latitude === null || longitude === null) {
+      return;
+    }
+
+    // Ersetzen Sie 'YOUR_OPENCAGE_API_KEY' durch Ihren tatsächlichen OpenCage API-Schlüssel
+    const reverseGeocodingUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=d36c33c26c204456bef7770d58567a90`;
+
+    fetch(reverseGeocodingUrl)
       .then(response => response.json())
       .then(data => {
-        const location = data.results[0].geometry;
-        setLatitude(location.lat);
-        setLongitude(location.lng);
+        const location = data.results[0].components.city;
+        setCity(location);
       })
       .catch(error => console.error('Fehler:', error));
-  }, [city]);
+  }, [latitude, longitude]);
 
   useEffect(() => {
+    if (latitude === null || longitude === null) {
+      return;
+    }
+
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,rain`;
 
     fetch(url)
