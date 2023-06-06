@@ -87,7 +87,7 @@ const WeatherPanel = () => {
       <p>Relative Luftfeuchtigkeit: {weatherData.hourly.relativehumidity_2m[0]}%</p>
       <p>Gefühlte Temperatur: {weatherData.hourly.apparent_temperature[0]}°C</p>
       <p>Niederschlag: {weatherData.hourly.rain[0]} mm</p>
-    </div>
+    </div> 
   );
 };
 
