@@ -18,11 +18,13 @@ type State = {
   message: string;
 };
 
+// Register component
 export default class Register extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
 
+    // Set the initial state
     this.state = {
       username: "",
       email: "",
@@ -38,7 +40,9 @@ export default class Register extends Component<Props, State> {
    *  6 and 40 characters.
    */
   validationSchema() {
+    // Define the validation rules using Yup
     return Yup.object().shape({
+      // Validate the username field
       username: Yup.string()
         .test(
           "len",
@@ -47,9 +51,11 @@ export default class Register extends Component<Props, State> {
             val && val.toString().length >= 3 && val.toString().length <= 20
         )
         .required("This field is required!"),
+      // Validate the email field
       email: Yup.string()
         .email("This is not a valid email.")
         .required("This field is required!"),
+      // Validate the password field
       password: Yup.string()
         .test(
           "len",
@@ -70,6 +76,7 @@ export default class Register extends Component<Props, State> {
     email: string;
     password: string;
   }) {
+    // Extract the username, email and password from the form data
     const { username, email, password } = formValue;
     // Reset the message and successful status
     this.setState({

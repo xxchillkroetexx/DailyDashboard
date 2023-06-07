@@ -15,13 +15,14 @@ import BoardUser from "./components/board-user.component";
 import EventBus from "./common/EventBus";
 
 type Props = {};
-
+// MainPage component
 type State = {
   showModeratorBoard: boolean;
   showAdminBoard: boolean;
   currentUser: IUser | undefined;
 };
 
+// MainPage component
 class MainPage extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -34,22 +35,23 @@ class MainPage extends Component<Props, State> {
     };
   }
 
-  componentDidMount() {
-    const user = AuthService.getCurrentUser();
+  // componentDidMount() {
+  //   const user = AuthService.getCurrentUser();
 
-    if (user) {
-      this.setState({
-        currentUser: user,
-      });
-    }
+  //   if (user) {
+  //     this.setState({
+  //       currentUser: user,
+  //     });
+  //   }
 
-    EventBus.on("logout", this.logOut);
-  }
+  //   EventBus.on("logout", this.logOut);
+  // }
 
   componentWillUnmount() {
     EventBus.remove("logout", this.logOut);
   }
 
+  // log out function
   logOut() {
     AuthService.logout();
     this.setState({
@@ -57,9 +59,11 @@ class MainPage extends Component<Props, State> {
     });
   }
 
+  // render the main page
   render() {
     const { currentUser } = this.state;
 
+    // return the main page
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">

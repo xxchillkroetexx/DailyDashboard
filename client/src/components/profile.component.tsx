@@ -1,6 +1,5 @@
 /**
  *  Hier wird die Profil-Seite des Users dargestellt
- *
  */
 
 import { Component } from "react";
@@ -8,13 +7,16 @@ import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import IUser from "../types/user.type";
 
+// Profile component
 type Props = {};
 
+// Profile component
 type State = {
   redirect: string | null;
   userReady: boolean;
   currentUser: IUser & { accessToken: string };
 };
+// Profile component
 export default class Profile extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -26,20 +28,28 @@ export default class Profile extends Component<Props, State> {
     };
   }
 
+  // reload the page
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
+    const currentUserToken = AuthService.getCurrentUser();
 
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true });
+    // redirect to home if already logged in
+    if (!currentUserToken) this.setState({ redirect: "/home" });
+    this.setState({
+      currentUser: { accessToken: currentUserToken },
+      userReady: true,
+    });
   }
 
+  // render the profile page
   render() {
+    // redirect to home if not logged in
     if (this.state.redirect) {
       return <Navigate to={this.state.redirect} />;
     }
 
     const { currentUser } = this.state;
 
+    // return the profile page
     return (
       <div className="container">
         {this.state.userReady ? (

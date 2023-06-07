@@ -1,13 +1,14 @@
 /**
- *
- *
+ * This file is used to communicate with the backend for authentication
  */
 
 import axios from "axios";
 import cookieUtil from "./cookie-util";
 
+// url of the backend
 const API_URL = "http://localhost:50000/";
 
+// class for authentication
 class AuthService {
   // login of user to
   async login(username: string, password: string) {
@@ -42,12 +43,15 @@ class AuthService {
     });
   }
 
+  // get the current user
   getCurrentUser() {
-    const userStr = cookieUtil.getAccessTokenCookie();
-    if (userStr) return JSON.parse(userStr);
-
-    return null;
+    const accessToken = cookieUtil.getAccessTokenCookie();
+    // if the browser has a token, return it
+    if (accessToken) return accessToken;
+    // if the browser does not have a token, return an empty string
+    return "";
   }
 }
 
+// exporting the AuthService class
 export default new AuthService();
