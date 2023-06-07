@@ -3,73 +3,67 @@ Wird auf alles in MainPage.tsx angewendet außer was untergeordetes
 wird explizit definiert   
 */
 
-  label {
-    display: block;
-    margin-top: 10px;
-  }
-  
-  .card-container.card {
-    max-width: 350px !important;
-    padding: 40px 40px;
-  }
-  
-  .card {
-    background-color: #f7f7f7;
-    padding: 20px 25px 30px;
-    margin: 0 auto 25px;
-    margin-top: 50px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  }
-  
-  .profile-img-card {
-    width: 96px;
-    height: 96px;
-    margin: 0 auto 10px;
-    display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-  }
+/* Globale Stile */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: url('./Background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+}
 
-  .navbar-brand {
-    background-color: #2c3e50;
-    border-color: #2c3e50;
-  }
 
-  .nav-item {
-    background-color: #2c3e50;
-    border-color: #2c3e50;
-  }
+/* Navigation */
 
-  .navbar-nav ml-auto {
-    background-color: #2c3e50;
-    border-color: #2c3e50;
-  }
+.navbar {
+  background-color: #333333;
+}
 
-  .container mt-3 {
-    background-color: #2c3e50;
-    border-color: #2c3e50;
-  }
+.navbar-brand {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  transition: color 0.3s ease-in-out;
+}
 
-  .nav-link {
-    color: #fff;
-  }
+.navbar-brand:hover {
+  color: #319024; 
+}
 
-  .navbar-nav mr-auto {
-    background-color: #2c3e50;
-    border-color: #2c3e50;
-  }
+.navbar-brand img {
+  width: 40px; 
+  margin-left: 15px; 
+  margin-right: 15px;
+}
 
-  .navbar-brand {
-    color: #fff;
-  }
+.navbar-nav .nav-item .nav-link {
+  color: #ffffff;
+  transition: color 0.3s ease-in-out;
+}
 
-  .navbar navbar-expand navbar-dark bg-dark {
-    background-color: #2c3e50;
-    border-color: #2c3e50;
-  }
+.navbar-nav .nav-item:hover .nav-link {
+  color: #319024; 
+}
+
+/* Container */
+
+.container {
+  margin-top: 20px;
+}
+
+
+
+/* Error Message */
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 20px;
+}
+

@@ -1,3 +1,124 @@
 /*
 * wird auf alles in userboard.component.tsx angewendet außer was untergeordetes  
 */
+
+
+
+/* Globale Stile */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header */
+  
+  /* Hier können Sie die Stile für den Header definieren */
+  
+  /* Userboard */
+    
+  
+  
+  .Home {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 100px;
+  }
+  
+  .tile {
+    flex: 1 0 250px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .tile:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-5px);
+  }
+  
+  /* Design für Witze-tile */
+  
+  .tile-1 {
+    background-color: #2ecc71;
+    color: #ffffff;
+  }
+  
+  .tile-1 h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .tile-1 .witz {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Design für Wetter-tile */
+  
+  .tile-2 {
+    background-color: #3498db;
+    color: #ffffff;
+  }
+  
+  .tile-2 h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .tile-2 input {
+    /* Stile für das Eingabefeld */
+  }
+  
+  .tile-2 .wetter-parameter {
+    /* Stile für die Wetterparameter */
+  }
+  
+  
+  /* Design für RSS-tile */
+  
+  .tile-3 {
+    background-color: #f39c12;
+    color: #ffffff;
+  }
+  
+  .tile-3 h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .tile-3 .rss-feed {
+    /* Stile für den RSS-Feed */
+  }
+  
+  
+  /* Design für Notizen-tile */
+  
+  .tile-4 {
+    background-color: #e74c3c;
+    color: #ffffff;
+  }
+  
+  .tile-4 h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .tile-4 input {
+    /* Stile für das Eingabefeld */
+  }
+  
+  .tile-4 .notizen {
+    /* Stile für das Notizfeld */
+  }
+  

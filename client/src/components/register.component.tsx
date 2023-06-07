@@ -7,6 +7,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 //import React from "react";
 import AuthService from "../services/auth.service";
+import logo from "../style/DD-Logo.png";
 
 type Props = {};
 
@@ -124,9 +125,9 @@ export default class Register extends Component<Props, State> {
       <div className="col-md-12">
         <div className="card card-container">
           <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
+            src={logo} // Hier den Pfad zum generellen Logo angeben
+            alt="logo"
+            className="logo-img-card" // Statt "profile-img-card"
           />
 
           <Formik

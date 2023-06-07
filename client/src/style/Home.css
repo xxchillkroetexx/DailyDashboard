@@ -3,59 +3,42 @@
 / Wird auf alles auf home.component.tsx angewendet
 */
 
-
-/* Globale Stile */
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-/* Header */
-
-/* Hier können Sie die Stile für den Header definieren */
-
-/* Hauptseite */
-  
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  background-image: url('./Background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
+/* Stile für die Homepage */
 .Home {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-top: 100px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.tiles-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 150px; /* Anpassen der maximalen Höhe nach Bedarf */
+  overflow-y: auto;
+}
+
+.logo-img-card {
+  width: 33.33%;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .tile {
-  flex: 1 0 250px;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  padding: 20px;
-  background-color: #f4f4f4;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.tile:hover {
-  background-color: #e0e0e0;
-  transform: translateY(-5px);
+.message {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.tile h1 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+
 
 
 
