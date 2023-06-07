@@ -60,7 +60,20 @@ const WeatherPanel = () => {
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCity(event.target.value);
+  
+    // Ersetzen Sie 'YOUR_OPENCAGE_API_KEY' durch Ihren tatsächlichen OpenCage API-Schlüssel
+    const geocodingUrl = `https://api.opencagedata.com/geocode/v1/json?q=${event.target.value}&key=d36c33c26c204456bef7770d58567a90`;
+  
+    fetch(geocodingUrl)
+      .then(response => response.json())
+      .then(data => {
+        const location = data.results[0].geometry;
+        setLatitude(location.lat);
+        setLongitude(location.lng);
+      })
+      .catch(error => console.error('Fehler:', error));
   };
+  
 
   if (!weatherData) {
     return <div>Loading...</div>;
@@ -74,7 +87,7 @@ const WeatherPanel = () => {
       <p>Relative Luftfeuchtigkeit: {weatherData.hourly.relativehumidity_2m[0]}%</p>
       <p>Gefühlte Temperatur: {weatherData.hourly.apparent_temperature[0]}°C</p>
       <p>Niederschlag: {weatherData.hourly.rain[0]} mm</p>
-    </div>
+    </div> 
   );
 };
 
