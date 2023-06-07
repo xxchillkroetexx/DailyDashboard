@@ -4,17 +4,58 @@
 */
 
 
-.Home {
-    background-color:darkblue;
-    display: flex; /* Ordnet Tiles dynamisch an */
-    flex-wrap: wrap; /* Verhindert dass Tiles abgeschnitten werden */
-    justify-content: center; /* Zentriert alles im Body */
-  }
+/* Globale Stile */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+
+/* Hier können Sie die Stile für den Header definieren */
+
+/* Hauptseite */
   
-/* Definiert größe und Farbe der Tiles */
-  .tile {
-    width: 300px;
-    height: 400px;
-    margin: 10px;
-    background-color:cornflowerblue;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: url('./Background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 100px;
+}
+
+.tile {
+  flex: 1 0 250px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.tile:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-5px);
+}
+
+.tile h1 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+
+
