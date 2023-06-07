@@ -7,6 +7,7 @@ import { Component } from "react";
 import GetWitz from "../services/GetWitz.service";
 import UserService from "../services/user.service";
 import "../style/Userboard.css";
+import WeatherPanel from "./WeatherPanel";
 
 type Props = {};
 
@@ -26,10 +27,11 @@ export default class UserBoard extends Component<Props, State> {
           <div className="UserBoard">
             {/* Die 4 Tiles auf der Seite. Design wird aus UserBoard.css gezogen */}
             <div className="tile">
-              {" "}
               <h1>Witz des Tages</h1> <GetWitz />
             </div>
-            <div className="tile"> Hier Tile Content einfügen </div>
+            <div className="tile">
+              <h2>Wetter</h2> <WeatherPanel />
+            </div>
             <div className="tile"> Hier Tile Content einfügen </div>
             <div className="tile"> Hier Tile Content einfügen </div>
           </div>
