@@ -54,7 +54,7 @@ app.get("/RSS", async (req: Request, res: Response) => {
   
   // Grab an rss feed using rss-parser
   const parser = new Parser();
-  const feed = await parser.parseURL("https://www.heise.de/rss/heise-atom.xml");
+  const feed = await parser.parseURL("https://www.tagesschau.de/infoservices/alle-meldungen-100~rss2.xml");
 
   // output for debugging
   console.log(feed.items.slice(0, 3));
