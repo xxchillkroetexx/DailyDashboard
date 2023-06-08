@@ -45,17 +45,41 @@ function RSSPanel() {
                 <p>{error}</p>
             ) : (
                 <>
-                    {data?.[0] && <p>{data?.[0].title}</p>}
-                    {data?.[0] && <p>{data?.[0].link}</p>}
-                    {data?.[0] && <p>{data?.[0].pubDate}</p>}
+                    <div className="rss-article">
+                        <div className="rss-title">
+                            {data?.[0] && <p>{data?.[0].title}</p>}
+                        </div>
+                        <div className="rss-link">
+                            {data?.[0] && <p>{data?.[0].link}</p>}
+                        </div>
+                        <div className="rss-date">
+                            {data?.[0] && <p>{data?.[0].pubDate}</p>}
+                        </div>
+                    </div>
                     <br />
-                    {data?.[1] && <p>{data?.[1].title}</p>}
-                    {data?.[1] && <p>{data?.[1].link}</p>}
-                    {data?.[1] && <p>{data?.[1].pubDate}</p>}
+                    <div className="rss-article">
+                        <div className="rss-title">
+                            {data?.[1] && <p>{data?.[1].title}</p>}
+                        </div>
+                        <div className="rss-link">
+                            {data?.[1] && <p>{data?.[1].link}</p>}
+                        </div>
+                        <div className="rss-date">
+                            {data?.[1] && <p>{data?.[1].pubDate}</p>}
+                        </div>
+                    </div>
                     <br />
-                    {data?.[2] && <p>{data?.[2].title}</p>}
-                    {data?.[2] && <p>{data?.[2].link}</p>}
-                    {data?.[2] && <p>{data?.[2].pubDate}</p>}
+                    <div className="rss-article">
+                        <div className="rss-title">
+                            {data?.[2] && <p>{data?.[2].title}</p>}
+                        </div>
+                        <div className="rss-link">
+                            {data?.[2] && <p>{data?.[2].link}</p>}
+                        </div>
+                        <div className="rss-date">
+                            {data?.[2] && <p>{data?.[2].pubDate}</p>}
+                        </div>
+                    </div>
                 </>
             )}
         </div>
