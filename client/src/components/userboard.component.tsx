@@ -8,6 +8,7 @@ import GetWitz from "../services/GetWitz.service";
 import UserService from "../services/user.service";
 import "../style/Userboard.css";
 import WeatherPanel from "./WeatherPanel";
+import RSSPanel from "../services/RSS.service";
 
 type Props = {};
 
@@ -32,7 +33,9 @@ export default class UserBoard extends Component<Props, State> {
             <div className="tile">
               <h2>Wetter</h2> <WeatherPanel />
             </div>
-            <div className="tile"> Hier Tile Content einfügen </div>
+            <div className="tile"> 
+              <h2>RSS Feed</h2> <RSSPanel />
+            </div>
             <div className="tile"> Hier Tile Content einfügen </div>
           </div>
         </>
