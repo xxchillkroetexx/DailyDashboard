@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./MainPage.css";
+import "./style/Mainpage.css";
 
 import AuthService from "./services/auth.service";
 import IUser from "./types/user.type";
@@ -9,10 +9,10 @@ import IUser from "./types/user.type";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
-import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
+import UserBoard from "./components/userboard.component";
 
 import EventBus from "./common/EventBus";
+import logo from "./style/DD-Logo.png";
 
 type Props = {};
 // MainPage component
@@ -68,7 +68,8 @@ class MainPage extends Component<Props, State> {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            DailyDashboard
+            <img src={logo} alt="Logo" />
+            Daily Dashboard
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -85,7 +86,13 @@ class MainPage extends Component<Props, State> {
               </li>
             )}
           </div>
-
+          <div className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link to={"/user"} className="nav-link">
+                Dashboard
+              </Link>
+            </li>
+          </div>
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
@@ -120,10 +127,9 @@ class MainPage extends Component<Props, State> {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/user" element={<UserBoard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
           </Routes>
         </div>
 
