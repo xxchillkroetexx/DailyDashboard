@@ -56,11 +56,10 @@ app.get("/RSS", async (req: Request, res: Response) => {
   const parser = new Parser();
   const feed = await parser.parseURL("https://www.heise.de/rss/heise-atom.xml");
 
-  //  return the first 3 articles as json  
-
   // output for debugging
   console.log(feed.items.slice(0, 3));
 
+  //  return the first 3 articles as json  
   res.json(feed.items.slice(0, 3));
 
 });
