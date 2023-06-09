@@ -1,0 +1,64 @@
+/*
+* wird auf alles in register.component.tsx angewendet außer was untergeordetes  
+*/
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #141415d1;
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-img-card {
+    width: 200px; 
+    height: auto; 
+    filter: drop-shadow(2px 2px 15px rgba(0, 0, 0, 0.431));
+  }
+  
+  
+  .card-container .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .card-container label {
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .card-container .form-control {
+    width: 100%;
+    padding: 10px;
+    background-color: #5f5f61b3;
+    border-radius: 0;
+    
+  }
+  
+  .card-container .alert {
+    margin-top: 10px;
+    border-radius: 0;
+  }
+  
+  .card-container .btn {
+    padding: 10px;
+    background-color: #2ecc71;
+    color: #ffffff;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .card-container .btn:hover {
+    background-color: #27ae60;
+  }
+  
+  .card-container .spinner-border {
+    margin-right: 5px;
+  }

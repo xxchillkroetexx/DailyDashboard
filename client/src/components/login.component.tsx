@@ -7,8 +7,10 @@ import { Component } from "react";
 import { Navigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import React from "react";
+//import React from "react";
 import AuthService from "../services/auth.service";
+import "../style/Login.css";
+import logo from "../style/DD-Logo.png";
 
 type Props = {};
 
@@ -116,11 +118,7 @@ export default class Login extends Component<Props, State> {
     return (
       <div className="col-md-12">
         <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+          <img src={logo} alt="logo" className="logo-img-card" />
           {/* error message */}
           <Formik
             initialValues={initialValues}

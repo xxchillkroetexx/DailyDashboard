@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import React from "react";
+//import React from "react";
 
 interface IData {
   type?: string;
