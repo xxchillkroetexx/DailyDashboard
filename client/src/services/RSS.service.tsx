@@ -1,99 +1,71 @@
 import { useState, useEffect } from "react";
 
-// Interfaces for the RSS-Data from the backend
-// It is a Array consisting of 3 rss articles as json objects
-
 interface RSSArticle {
-    title: string;
-    link: string;
-    pubDate: string;
+  title: string;
+  link: string;
+  pubDate: string;
 }
 
 function RSSPanel() {
+  const [data, setData] = useState<RSSArticle[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [rssURL, setRssURL] = useState<string>("https://www.tagesschau.de/infoservices/alle-meldungen-100~rss2.xml");
 
-    // State for the RSS-Data
-    const [data, setData] = useState<RSSArticle[] | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const [rssURL, setRssURL] = useState("");
+  const fetchData = async (url: string) => {
+    try {
+      const response = await fetch(`/RSS/${encodeURIComponent(url)}`);
+      if (!response.ok) {
+        throw new Error("Fehler beim Datenabruf: " + response.status);
+      }
+      const jsonData = await response.json();
+      setData(jsonData);
+      setError(null);
+    } catch (error) {
+      setData(null);
+      setError("Bitte geben Sie eine gültige RSS-URL ein.");
+    }
+  };
 
-    // Get the RSS-Data from the backend
-    useEffect(() => {
-        // Fetch the data from the backend
-        const fetchData = async () => {
-            const response = await fetch("http://localhost:50000/rss");
-            try {
-                // If there is an error, set the error message
-                if (!response.ok) {
-                    throw new Error("Fehler beim Datenabruf: " + response.status);
-                }
-                // If there is a response, set the data to the response data
-                const jsonData = await response.json();
-                setData(jsonData);
-            } catch (error) {
-                // If there is an error, set the error message
-                setError("Fehler beim Datenabruf");
-            }
-        };
-        fetchData();
+  useEffect(() => {
+    fetchData(rssURL);
+  }, []);
 
-        return;
-    }, []);
+  const handleRssURLChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const url = event.target.value.trim();
+    setRssURL(url);
+    if (url) {
+      fetchData(url);
+    } else {
+      setData(null);
+      setError(null);
+    }
+  };
 
-    // Handle the input change
-    const handleRssURLChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRssURL(event.target.value);
+  return (
+    <div>
+      <input type="text" value={rssURL} onChange={handleRssURLChange} />
 
-    };
-
-    // Return the 3 RSS-Articles
-    return (
-        <div>
-            <input type="text" value={rssURL} onChange={handleRssURLChange} />
-
-            {error ? (
-                <p>{error}</p>
-            ) : (
-                <>
-                    <div className="rss-article">
-                        <div className="rss-title">
-                            {data?.[0] && <p>{data?.[0].title}</p>}
-                        </div>
-                        <div className="rss-link">
-                            {data?.[0] && <p>{data?.[0].link}</p>}
-                        </div>
-                        <div className="rss-date">
-                            {data?.[0] && <p>{data?.[0].pubDate}</p>}
-                        </div>
-                    </div>
-                    <br />
-                    <div className="rss-article">
-                        <div className="rss-title">
-                            {data?.[1] && <p>{data?.[1].title}</p>}
-                        </div>
-                        <div className="rss-link">
-                            {data?.[1] && <p>{data?.[1].link}</p>}
-                        </div>
-                        <div className="rss-date">
-                            {data?.[1] && <p>{data?.[1].pubDate}</p>}
-                        </div>
-                    </div>
-                    <br />
-                    <div className="rss-article">
-                        <div className="rss-title">
-                            {data?.[2] && <p>{data?.[2].title}</p>}
-                        </div>
-                        <div className="rss-link">
-                            {data?.[2] && <p>{data?.[2].link}</p>}
-                        </div>
-                        <div className="rss-date">
-                            {data?.[2] && <p>{data?.[2].pubDate}</p>}
-                        </div>
-                    </div>
-                </>
-            )}
-        </div>
-    );
-
+      {error ? (
+        <p>{error}</p>
+      ) : (
+        <>
+          {data?.slice(0, 3).map((article) => (
+            <div className="rss-article" key={article.link}>
+              <div className="rss-title">
+                <p>{article.title}</p>
+              </div>
+              <div className="rss-link">
+                <p>{article.link}</p>
+              </div>
+              <div className="rss-date">
+                <p>{article.pubDate}</p>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
+    </div>
+  );
 }
 
 export default RSSPanel;
