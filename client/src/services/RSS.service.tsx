@@ -14,6 +14,7 @@ function RSSPanel() {
     // State for the RSS-Data
     const [data, setData] = useState<RSSArticle[] | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [rssURL, setRssURL] = useState("");
 
     // Get the RSS-Data from the backend
     useEffect(() => {
@@ -38,9 +39,17 @@ function RSSPanel() {
         return;
     }, []);
 
+    // Handle the input change
+    const handleRssURLChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRssURL(event.target.value);
+
+    };
+
     // Return the 3 RSS-Articles
     return (
         <div>
+            <input type="text" value={rssURL} onChange={handleRssURLChange} />
+
             {error ? (
                 <p>{error}</p>
             ) : (
