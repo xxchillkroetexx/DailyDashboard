@@ -83,8 +83,10 @@ const WeatherPanel = () => {
 
   return (
     <div>
-      <input type="text" value={city} onChange={handleCityChange} />
-      <h2>Wettervorhersage für {city}</h2>
+      <h5>
+        <input type="text" value={city} onChange={handleCityChange} />
+      </h5>
+      <h6>Wettervorhersage für {city}:</h6>
       <p>Temperatur: {weatherData.hourly.temperature_2m[0]}°C</p>
       <p>
         Relative Luftfeuchtigkeit: {weatherData.hourly.relativehumidity_2m[0]}%
