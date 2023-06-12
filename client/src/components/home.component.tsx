@@ -24,10 +24,10 @@ export default class Home extends Component<Props, State> {
         <div className="Home">
           <img src={logo} alt="logo" className="logo-img-card" />
           <div className="message">
-            <h2>Bitte anmelden</h2>
+            <h1>Bitte anmelden!</h1>
           </div>
           <div className="tile">
-            <h1>Witz des Tages</h1> <GetWitz />
+            <h2>Witz des Tages</h2> <GetWitz />
             {/* Hier den Witz des Tages einfügen */}
           </div>
         </div>
