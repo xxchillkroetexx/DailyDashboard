@@ -44,27 +44,28 @@ export default class UserBoard extends Component<Props, State> {
       ),
     };
   }
+  // auskommentiert da er Errors wirft und nicht benötigt wird
 
   // get the content from the backend
-  componentDidMount() {
-    UserService.getPublicContent().then(
-      // if there is a response, set the content to the response data
-      (response) => {
-        this.setState({
-          content: response.data,
-        });
-      },
-      // if there is an error, set the content to the error message
-      (error) => {
-        this.setState({
-          content:
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString(),
-        });
-      }
-    );
-  }
+  // componentDidMount() {
+  //   UserService.getUserBoard().then(
+  //     // if there is a response, set the content to the response data
+  //     (response) => {
+  //       this.setState({
+  //         content: response.data,
+  //       });
+  //     },
+  //     // if there is an error, set the content to the error message
+  //     (error) => {
+  //       this.setState({
+  //         content:
+  //           (error.response && error.response.data) ||
+  //           error.message ||
+  //           error.toString(),
+  //       });
+  //     }
+  //   );
+  // }
 
   // render the content
   render() {
