@@ -26,17 +26,19 @@ export default class UserBoard extends Component<Props, State> {
       content: (
         <>
           <div className="UserBoard">
-            {/* Die 4 Tiles auf der Seite. Design wird aus UserBoard.css gezogen */}
-            <div className="tile">
-              <h1>Witz des Tages</h1> <GetWitz />
+            <div className="tile-1">
+              <h1>Wetter</h1> <WeatherPanel />
             </div>
-            <div className="tile">
-              <h2>Wetter</h2> <WeatherPanel />
+            <div className="tile-2">
+              <h2>Witz des Tages</h2> <GetWitz />
             </div>
-            <div className="tile"> 
-              <h2>RSS Feed</h2> <RSSPanel />
+            <div className="tile-3">
+              <h3>RSS Feed</h3> <RSSPanel />
             </div>
-            <div className="tile"> Hier Tile Content einfügen </div>
+            <div className="tile-4">
+              <h4>Notizen</h4> {/* placeholder */}
+              <h5>WIP</h5> {/* placeholder */}
+            </div>
           </div>
         </>
       ),
