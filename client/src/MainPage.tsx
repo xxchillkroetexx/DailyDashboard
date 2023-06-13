@@ -35,17 +35,17 @@ class MainPage extends Component<Props, State> {
     };
   }
 
-  // componentDidMount() {
-  //   const user = AuthService.getCurrentUser();
+  componentDidMount() {
+    const user = AuthService.getCurrentUser();
 
-  //   if (user) {
-  //     this.setState({
-  //       currentUser: user,
-  //     });
-  //   }
+    if (user) {
+      this.setState({
+        currentUser: user,
+      });
+    }
 
-  //   EventBus.on("logout", this.logOut);
-  // }
+    EventBus.on("logout", this.logOut);
+  }
 
   componentWillUnmount() {
     EventBus.remove("logout", this.logOut);
@@ -77,27 +77,13 @@ class MainPage extends Component<Props, State> {
                 Home
               </Link>
             </li>
+          </div>
 
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
-          </div>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                Dashboard
-              </Link>
-            </li>
-          </div>
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
+                <Link to={"/user"} className="nav-link">
+                  Dashboard
                 </Link>
               </li>
               <li className="nav-item">
