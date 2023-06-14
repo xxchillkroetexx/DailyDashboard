@@ -4,7 +4,7 @@ This web application gives you some information you might need on a daily basis.
 
 ---
 
-## running the Application
+## Running the Application
 
 ### 1. Start the backend (server)
 
