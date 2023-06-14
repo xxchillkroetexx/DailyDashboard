@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import GetWitz from "../src/components/GetWitz";
+import GetWitz from "../src/services/GetWitz.service";
 import React from "react";
 
 describe("GetWitz", () => {

@@ -7,8 +7,10 @@ import { Component } from "react";
 import { Navigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import React from "react";
+//import React from "react";
 import AuthService from "../services/auth.service";
+import "../style/Login.css";
+import logo from "../style/DD-Logo.png";
 
 type Props = {};
 
@@ -20,11 +22,13 @@ type State = {
   message: string;
 };
 
+// Login component
 export default class Login extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
 
+    // set the state of the component
     this.state = {
       redirect: null,
       username: "",
@@ -35,17 +39,21 @@ export default class Login extends Component<Props, State> {
   }
 
   componentDidMount() {
+    // get the current user
     const currentUser = AuthService.getCurrentUser();
 
+    // redirect to home if already logged in
     if (currentUser) {
-      this.setState({ redirect: "/profile" });
+      this.setState({ redirect: "/home" });
     }
   }
 
+  // reload the page
   componentWillUnmount() {
     window.location.reload();
   }
 
+  // validation schema for the login form
   validationSchema() {
     return Yup.object().shape({
       username: Yup.string().required("This field is required!"),
@@ -53,21 +61,27 @@ export default class Login extends Component<Props, State> {
     });
   }
 
+  // login function
   handleLogin(formValue: { username: string; password: string }) {
     const { username, password } = formValue;
 
+    // set the state of the component
     this.setState({
       message: "",
       loading: true,
     });
 
+    // login function from the auth.service.ts
     AuthService.login(username, password).then(
       () => {
+        // redirect to home if login is successful
         this.setState({
-          redirect: "/profile",
+          redirect: "/home",
         });
       },
+      // if login is not successful, set the error message
       (error) => {
+        // get the error message
         const resMessage =
           (error.response &&
             error.response.data &&
@@ -75,6 +89,7 @@ export default class Login extends Component<Props, State> {
           error.message ||
           error.toString();
 
+        // set the state of the component
         this.setState({
           loading: false,
           message: resMessage,
@@ -83,27 +98,28 @@ export default class Login extends Component<Props, State> {
     );
   }
 
+  // render the login form
   render() {
+    // redirect to home if already logged in
     if (this.state.redirect) {
       return <Navigate to={this.state.redirect} />;
     }
 
+    // get the state of the component
     const { loading, message } = this.state;
 
+    // initial values for the login form
     const initialValues = {
       username: "",
       password: "",
     };
 
+    // return the login form
     return (
       <div className="col-md-12">
         <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
-
+          <img src={logo} alt="logo" className="logo-img-card" />
+          {/* error message */}
           <Formik
             initialValues={initialValues}
             validationSchema={this.validationSchema}

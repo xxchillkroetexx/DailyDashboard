@@ -1,12 +1,12 @@
 /**
- * Hauptcontent Seite, hier wird content dargestellt der keinen Login erfordert
+ * Homepage Seite, hier wird content dargestellt der keinen Login erfordert
  *
  */
 
 import { Component } from "react";
-import GetWitz from "./GetWitz";
-import UserService from "../services/user.service";
-import "../Home.css";
+import GetWitz from "../services/GetWitz.service";
+import logo from "../style/DD-Logo.png";
+import "../style/home.css";
 
 type Props = {};
 
@@ -18,41 +18,24 @@ export default class Home extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    // set the state
     this.state = {
       content: (
-        <>
-          {/* Header mit Darkmode, Name und Login */}
-          {/* Body der Hauptseite. Design wird aus Home.css gezogen */}
-          <div className="Home">
-            {/* Die 4 Tiles auf der Seite. Design wird aus Home.css gezogen */}
-            <div className="tile"> <h1>Witz des Tages</h1>  <GetWitz/></div>
-            <div className="tile"> Hier Tile Content einfügen </div>
-            <div className="tile"> Hier Tile Content einfügen </div>
-            <div className="tile"> Hier Tile Content einfügen </div>
+        <div className="Home">
+          <img src={logo} alt="logo" className="logo-img-card" />
+          <div className="message">
+            <h1>Bitte anmelden!</h1>
           </div>
-        </>
+          <div className="tile">
+            <h2>Witz des Tages</h2> <GetWitz />
+            {/* Hier den Witz des Tages einfügen */}
+          </div>
+        </div>
       ),
     };
   }
 
-  componentDidMount() {
-    UserService.getPublicContent().then(
-      (response) => {
-        this.setState({
-          content: response.data,
-        });
-      },
-      (error) => {
-        this.setState({
-          content:
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString(),
-        });
-      }
-    );
-  }
-
+  // render the content
   render() {
     return (
       <div className="container">

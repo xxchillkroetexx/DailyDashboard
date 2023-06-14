@@ -6,6 +6,7 @@ import DashboardModel from "./models/DashboardSchema";
 import UserModel from "./models/UserSchema";
 import axios, { AxiosResponse } from "axios";
 import cors from "cors";
+import Parser from "rss-parser";
 
 // * Spezifizierung des Ports, auf den die App hören soll
 const PORT = 50000;
@@ -47,6 +48,24 @@ app.get("/joke", async (req: Request, res: Response) => {
   } catch (error) {}
 });
 //End Joke API
+
+// ! RSS Feed API
+app.get("/RSS", async (req: Request, res: Response) => {
+  
+  // Grab an rss feed using rss-parser
+  const parser = new Parser();
+  const feed = await parser.parseURL("https://www.tagesschau.de/infoservices/alle-meldungen-100~rss2.xml");
+
+  // output for debugging
+  console.log(feed.items.slice(0, 3));
+
+  //  return the first 3 articles as json  
+  res.json(feed.items.slice(0, 3));
+
+});
+
+
+// ! End RSS Feed API
 
 // ! Register
 app.post("/register", async (req: Request, res: Response) => {
@@ -161,3 +180,7 @@ mongoose
     app.listen(PORT);
   });
 // * Ende Verbindung zu MongoDB
+
+
+
+
