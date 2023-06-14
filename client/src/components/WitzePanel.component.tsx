@@ -1,4 +1,5 @@
 import GetWitz from "../services/GetWitz.service";
+import React from "react";
 
 function WitzePanel() {
   return (
